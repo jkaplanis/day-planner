@@ -8,17 +8,26 @@ var currentHour = moment().hour();
 
 
 var hoursArray = $(".time-block")
+
 for(var i = 0; i < hoursArray.length; i++){
     var hoursID = parseInt($(hoursArray[i]).attr("id").split("-")[1]);
-    $(".time-block").removeClass("past present")
+    // $(".time-block").removeClass("past present future")
+    var test = $(hoursArray[i]).attr("id")
     
-    if (currentHour > hoursID){
-        $(".time-block").removeClass("future")
-        $(".time-block").addClass("past")
-    };
-    if(currentHour === hoursID){
-        $(".time-block").removeClass("future")
-        $(".time-block").addClass("present")
+    if (hoursID < currentHour){
+        
+        $("#" + test).addClass("past")
+    }
+    else if(hoursID === currentHour){
+        // $(".time-block").removeClass("past")
+        // $(".time-block").removeClass("future")
+        $("#" + test).addClass("present")
+    }
+    
+    else{
+        // $(".time-block").removeClass("past")
+        // $(".time-block").removeClass("present")
+        $("#" + test).addClass("future")
     };
 };
 
@@ -52,8 +61,10 @@ $(".saveBtn").on("click", handleSave);
 
 function handleSave(event) {
     parentID = $(this).parent().attr("id")
+    console.log(parentID);
     inputText = $(".description").val();
     localStorage.setItem(parentID, JSON.stringify(inputText));
+
 }
 
 
